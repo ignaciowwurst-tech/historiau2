@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { ArrowLeft, ArrowRight, Download, ExternalLink, ImageDown, Instagram, LoaderCircle } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Download, ExternalLink, ImageDown, Camera, LoaderCircle } from 'lucide-react'
 
 type StatRow = { club: string; apps: string; goals: string; assists: string }
 type Slide = {
@@ -80,10 +80,10 @@ const slides: Slide[] = [
     image: '/tevez/field.png',
     kind: 'stats',
     rows: [
-      { club: 'Corinthians', apps: '56', goals: '33', assists: '8' },
+      { club: 'Corinthians', apps: '57', goals: '33', assists: '8' },
       { club: 'West Ham', apps: '29', goals: '7', assists: '4' },
       { club: 'Shanghai', apps: '20', goals: '4', assists: '7' },
-      { club: 'TOTAL CLUBES', apps: '727', goals: '295', assists: '140' },
+      { club: 'TOTAL CLUBES', apps: '728', goals: '295', assists: '140' },
     ],
     small: 'Asistencias: registro de proveedor; puede variar entre bases.',
   },
@@ -107,7 +107,7 @@ const slides: Slide[] = [
 ]
 
 const sourceLinks = [
-  { label: 'Estadísticas por club · Transfermarkt', href: 'https://www.transfermarkt.com/carlos-tevez/leistungsdaten/spieler/42710' },
+  { label: 'Estadísticas por club · Transfermarkt', href: 'https://www.transfermarkt.com/carlos-tevez/leistungsdatendetails/spieler/4276/plus/0?saison=ges' },
   { label: 'Premier League · perfil y trayectoria', href: 'https://www.premierleague.com/players/3316/Carlos-Tevez/overview' },
   { label: 'Rooney y Tévez · entrevistas en YouTube', href: 'https://www.youtube.com/results?search_query=Wayne+Rooney+Carlos+Tevez+best+partner+interview' },
   { label: 'Despedida · cobertura reciente', href: 'https://news.google.com/search?q=Carlos%20Tevez%20despedida%20Bombonera%202026&hl=es-419&gl=AR&ceid=AR%3Aes-419' },
@@ -414,7 +414,7 @@ export function TevezCarousel() {
       <div className="mx-auto max-w-[1380px] px-4 pb-14 pt-5 sm:px-8 lg:px-12">
         <header className="flex items-center justify-between border-b border-white/10 pb-5">
           <a className="flex items-center gap-3" href="#inicio" aria-label="Cancha Abierta, inicio">
-            <span className="grid size-10 place-items-center rounded-full bg-[#f1c644] text-[#10151d]"><Instagram size={18} aria-hidden="true" /></span>
+            <span className="grid size-10 place-items-center rounded-full bg-[#f1c644] text-[#10151d]"><Camera size={18} aria-hidden="true" /></span>
             <span className="text-sm font-black uppercase tracking-[0.2em]">Cancha Abierta</span>
           </a>
           <span className="hidden text-xs font-semibold uppercase tracking-[0.18em] text-white/45 sm:block">Periodismo en placas · 2026</span>

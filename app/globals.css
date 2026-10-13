@@ -161,3 +161,190 @@
     @apply bg-background text-foreground;
   }
 }
+
+:root {
+  color-scheme: light;
+  --studio-ink: #1b1d1a;
+  --studio-paper: #f2efe8;
+  --studio-muted: #817f77;
+  --studio-blue: #194be5;
+  --studio-yellow: #f6d746;
+}
+
+body {
+  margin: 0;
+  background: var(--studio-paper);
+  color: var(--studio-ink);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.tevez-studio {
+  min-height: 100vh;
+  overflow: hidden;
+  background: var(--studio-paper);
+}
+
+.tevez-header {
+  display: flex;
+  min-height: 78px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  padding: 0 clamp(20px, 5vw, 72px);
+  border-bottom: 1px solid #d8d5ce;
+}
+
+.tevez-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--studio-ink);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-decoration: none;
+}
+
+.tevez-brand i { font-style: normal; font-weight: 400; }
+.tevez-brand-icon { display: grid; width: 30px; height: 30px; place-items: center; border-radius: 50%; background: var(--studio-blue); color: white; }
+.tevez-brand-icon svg { width: 15px; height: 15px; }
+.tevez-header-note { display: flex; align-items: center; gap: 9px; color: #66665e; font-size: 10px; font-weight: 700; letter-spacing: .13em; }
+.tevez-live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--studio-blue); }
+.tevez-header-divider { color: #c5c2ba; }
+.tevez-download-top { display: flex; min-height: 40px; align-items: center; gap: 9px; padding: 0 15px; border: 0; border-radius: 4px; background: var(--studio-ink); color: white; font-size: 11px; font-weight: 700; cursor: pointer; }
+.tevez-download-top svg { width: 15px; height: 15px; }
+.tevez-download-top:disabled, .tevez-download-actions button:disabled { cursor: wait; opacity: .65; }
+
+.tevez-main { display: grid; width: min(1190px, calc(100% - 64px)); grid-template-columns: minmax(250px, 350px) minmax(0, 540px); grid-template-rows: auto 1fr; grid-template-areas: "intro preview" "sources preview"; justify-content: space-between; gap: 0 clamp(28px, 6vw, 96px); margin: 0 auto; padding: clamp(38px, 6vw, 74px) 0 62px; }
+.tevez-editorial { grid-area: intro; align-self: end; padding: 8px 0 20px; }
+.tevez-sources { grid-area: sources; align-self: start; }
+.tevez-section-tag { display: flex; align-items: center; gap: 10px; color: #7d7b73; font-size: 9px; font-weight: 800; letter-spacing: .16em; }
+.tevez-section-tag span { display: grid; width: 27px; height: 27px; place-items: center; border: 1px solid #d1cec6; border-radius: 50%; color: var(--studio-blue); font-size: 9px; }
+.tevez-editorial h1 { margin: 27px 0 17px; font-size: clamp(42px, 5vw, 66px); font-weight: 800; letter-spacing: -.075em; line-height: .97; }
+.tevez-editorial h1 em { color: var(--studio-blue); font-style: normal; }
+.tevez-deck { max-width: 320px; margin: 0; color: #626159; font-size: 14px; line-height: 1.7; }
+.tevez-byline { display: flex; align-items: center; gap: 11px; margin-top: 24px; color: #8a877f; font-size: 9px; font-weight: 700; letter-spacing: .09em; line-height: 1.6; }
+.tevez-byline strong { color: var(--studio-ink); font-size: 9px; }
+.tevez-avatar { display: grid; width: 35px; height: 35px; place-items: center; border: 1px solid #d1cec6; border-radius: 50%; color: var(--studio-blue); font-size: 11px; font-weight: 800; letter-spacing: 0; }
+.tevez-editorial-rule { width: 100%; height: 1px; margin: 25px 0 18px; background: #d7d4cd; }
+.tevez-reference-label { display: flex; align-items: center; gap: 8px; color: #474840; font-size: 9px; font-weight: 800; letter-spacing: .11em; }
+.tevez-reference-label svg { width: 14px; height: 14px; color: var(--studio-blue); }
+.tevez-reference-note, .tevez-caveat { margin: 9px 0 10px; color: #75736b; font-size: 10px; line-height: 1.6; }
+.tevez-reference-list { display: flex; flex-direction: column; gap: 0; }
+.tevez-reference-list a { display: grid; grid-template-columns: 25px 1fr 13px; align-items: center; gap: 7px; padding: 8px 0; border-bottom: 1px solid #dfdcd5; color: #353630; font-size: 10px; text-decoration: none; }
+.tevez-reference-list a:hover { color: var(--studio-blue); }
+.tevez-reference-list a span { color: #a09d95; font-size: 9px; }
+.tevez-reference-list a svg { width: 12px; height: 12px; color: #8b8981; }
+.tevez-caveat { margin-top: 13px; padding-left: 10px; border-left: 2px solid var(--studio-blue); }
+
+.tevez-preview-area { grid-area: preview; min-width: 0; }
+.tevez-preview-heading { display: flex; align-items: end; justify-content: space-between; margin-bottom: 13px; }
+.tevez-preview-heading div { display: flex; flex-direction: column; gap: 3px; }
+.tevez-preview-heading div span, .tevez-size-label { color: #828078; font-size: 9px; font-weight: 800; letter-spacing: .12em; }
+.tevez-preview-heading div strong { font-size: 14px; font-weight: 700; }
+.tevez-size-label { letter-spacing: .04em; }
+.tevez-size-label i { color: var(--studio-blue); font-style: normal; }
+.tevez-preview-stage { position: relative; display: flex; align-items: center; justify-content: center; }
+.tevez-visible-card { width: min(100%, 460px); overflow: hidden; border-radius: 3px; background: #101210; box-shadow: 0 18px 48px #27261c26; }
+.tevez-arrow { position: absolute; z-index: 2; display: grid; width: 38px; height: 38px; place-items: center; border: 1px solid #d8d5ce; border-radius: 50%; background: #f7f5f0; color: #282a25; cursor: pointer; }
+.tevez-arrow:hover { border-color: var(--studio-blue); color: var(--studio-blue); }
+.tevez-arrow svg { width: 17px; height: 17px; }
+.tevez-arrow-left { left: -50px; }
+.tevez-arrow-right { right: -50px; }
+.tevez-controls { display: flex; align-items: center; justify-content: space-between; margin: 14px auto 0; width: min(100%, 460px); }
+.tevez-dots { display: flex; align-items: center; gap: 7px; }
+.tevez-dot { width: 7px; height: 7px; padding: 0; border: 0; border-radius: 50%; background: #c9c6be; cursor: pointer; transition: width .18s ease, background .18s ease; }
+.tevez-dot.is-active { width: 24px; border-radius: 5px; background: var(--studio-blue); }
+.tevez-counter { color: #32332e; font-size: 11px; font-weight: 800; letter-spacing: .08em; }
+.tevez-counter i { padding: 0 4px; color: #a29f97; font-style: normal; }
+.tevez-download-actions { display: flex; width: min(100%, 460px); gap: 9px; margin: 16px auto 0; }
+.tevez-download-actions button { display: flex; min-height: 46px; align-items: center; justify-content: center; gap: 8px; border-radius: 3px; font-size: 11px; font-weight: 700; cursor: pointer; }
+.tevez-download-actions svg { width: 15px; height: 15px; }
+.tevez-export-current { flex: 1; border: 0; background: var(--studio-blue); color: white; }
+.tevez-export-current:hover { background: #103dc9; }
+.tevez-export-all { padding: 0 15px; border: 1px solid #cfccc4; background: transparent; color: #32332e; }
+.tevez-export-all:hover { background: #e7e4dd; }
+.tevez-spinner { animation: tevez-spin .8s linear infinite; }
+.tevez-export-status { min-height: 14px; margin: 7px 0 0; color: var(--studio-blue); text-align: center; font-size: 10px; }
+@keyframes tevez-spin { to { transform: rotate(360deg); } }
+
+.tevez-footer { display: flex; justify-content: space-between; gap: 15px; padding: 18px clamp(20px, 5vw, 72px); border-top: 1px solid #d8d5ce; color: #79776f; font-size: 9px; font-weight: 700; letter-spacing: .11em; }
+.tevez-footer i { color: var(--studio-blue); font-style: normal; }
+.tevez-footer > span:last-child span { padding-left: 5px; color: var(--studio-blue); }
+
+.tevez-slide { --slide-gold: #f3d437; position: relative; container-type: inline-size; width: 100%; aspect-ratio: 4 / 5; overflow: hidden; background: #101210; color: #fffdf7; font-family: Arial, Helvetica, sans-serif; }
+.tevez-slide-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.tevez-slide-shade { position: absolute; inset: 0; background: linear-gradient(180deg, #090b0d55 0%, #10121008 25%, #101210b3 54%, #101210f5 100%); }
+.tevez-slide-frame { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 5.3% 7%; }
+.tevez-slide-topline { display: flex; justify-content: space-between; border-bottom: 1px solid #ffffff70; padding-bottom: 3.3%; color: #fffdf7d9; font-size: clamp(7px, 1.2cqw, 13px); font-weight: 700; letter-spacing: .15em; }
+.tevez-cover-copy, .tevez-story-copy, .tevez-stat-copy { position: relative; display: flex; flex: 1; flex-direction: column; justify-content: flex-end; padding-bottom: 9%; }
+.tevez-kicker { display: block; margin-bottom: 4%; color: var(--slide-gold); font-size: clamp(9px, 1.65cqw, 18px); font-weight: 800; letter-spacing: .13em; }
+.tevez-slide h2 { max-width: 94%; margin: 0 0 4%; color: #fffdf7; font-size: clamp(30px, 8cqw, 88px); font-weight: 900; letter-spacing: -.065em; line-height: .93; text-wrap: balance; }
+.tevez-slide-1 h2 { max-width: 84%; color: var(--slide-gold); font-size: clamp(34px, 9.1cqw, 100px); }
+.tevez-slide p { max-width: 90%; margin: 0; color: #f3f0e8; font-size: clamp(12px, 2.5cqw, 27px); font-weight: 400; line-height: 1.48; }
+.tevez-cover-copy > p { max-width: 78%; }
+.tevez-cover-mark { position: absolute; right: 1%; bottom: 11%; color: #fffdf7a6; font-size: clamp(10px, 1.5cqw, 17px); font-weight: 800; letter-spacing: .1em; line-height: 1.2; text-align: right; }
+.tevez-slide-footer { display: flex; justify-content: space-between; margin-top: auto; padding-top: 3.5%; border-top: 1px solid #ffffff65; color: #fffdf7c2; font-size: clamp(7px, 1.05cqw, 12px); font-weight: 700; letter-spacing: .14em; }
+.tevez-slide-2 .tevez-slide-photo { object-position: 53% center; }
+.tevez-slide-3 .tevez-slide-photo { object-position: 55% center; }
+.tevez-slide-4 .tevez-slide-photo { object-position: 58% center; }
+.tevez-slide-5 .tevez-slide-shade { background: linear-gradient(180deg, #08090a82, #101210dd 35%, #101210fa 72%); }
+.tevez-stat-copy { justify-content: flex-start; padding-bottom: 2%; }
+.tevez-stat-copy h2 { max-width: 90%; margin-bottom: 3%; font-size: clamp(26px, 6.1cqw, 66px); }
+.tevez-stat-total { display: flex; align-items: center; gap: 2.4%; padding: 1.8% 0 2.5%; border-top: 1px solid #ffffff45; border-bottom: 1px solid #ffffff45; }
+.tevez-stat-total strong { color: var(--slide-gold); font-size: clamp(24px, 6.4cqw, 69px); font-weight: 900; letter-spacing: -.08em; }
+.tevez-stat-total span { margin-right: 3%; color: #fffdf7d4; font-size: clamp(8px, 1.55cqw, 17px); font-weight: 700; line-height: 1.1; }
+.tevez-stat-table { display: flex; flex-direction: column; width: 100%; margin-top: 2%; }
+.tevez-stat-row { display: grid; grid-template-columns: 1fr 12% 12% 12%; align-items: center; min-height: clamp(21px, 4.1cqw, 44px); border-bottom: 1px solid #ffffff26; color: #fffdf7ed; font-size: clamp(9px, 1.68cqw, 18px); }
+.tevez-stat-row > span:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
+.tevez-stat-head { min-height: clamp(18px, 3.2cqw, 34px); color: var(--slide-gold); font-size: clamp(7px, 1.25cqw, 13px); font-weight: 800; letter-spacing: .13em; }
+.tevez-stat-note { margin-top: 2.5% !important; color: #fffdf7b8 !important; font-size: clamp(8px, 1.4cqw, 15px) !important; }
+.tevez-status-stamp { align-self: flex-start; margin-top: 6%; padding: 2.5% 3%; border: 1px solid var(--slide-gold); color: var(--slide-gold); font-size: clamp(9px, 1.7cqw, 18px); font-weight: 900; letter-spacing: .12em; transform: rotate(-2deg); }
+.tevez-quote-mark { position: absolute; top: -8%; right: 5%; color: var(--slide-gold); font-size: clamp(100px, 29cqw, 310px); font-family: Georgia, serif; line-height: 1; opacity: .8; }
+.tevez-slide-7 .tevez-story-copy { padding-right: 7%; }
+.tevez-slide-8 .tevez-story-copy { padding-bottom: 14%; }
+.tevez-last-word { display: block; margin-top: 7%; color: var(--slide-gold); font-size: clamp(18px, 4.8cqw, 52px); font-weight: 900; letter-spacing: -.03em; line-height: .95; }
+.tevez-export-deck { position: fixed; top: 0; left: -1200px; z-index: -1; width: 1080px; pointer-events: none; }
+.tevez-export-deck .tevez-slide-capture { width: 1080px; height: 1350px; }
+
+@media (max-width: 800px) {
+  .tevez-header { min-height: 66px; padding: 0 18px; }
+  .tevez-header-note { display: none; }
+  .tevez-download-top { min-height: 36px; padding: 0 10px; font-size: 10px; }
+  .tevez-main { width: min(550px, calc(100% - 36px)); grid-template-columns: 1fr; grid-template-rows: auto auto auto; grid-template-areas: "intro" "preview" "sources"; gap: 22px; padding: 25px 0 36px; }
+  .tevez-editorial { padding: 0; }
+  .tevez-sources { align-self: stretch; }
+  .tevez-section-tag { font-size: 8px; }
+  .tevez-editorial h1 { margin: 15px 0 10px; font-size: clamp(38px, 11vw, 54px); }
+  .tevez-deck { max-width: 440px; font-size: 12px; line-height: 1.55; }
+  .tevez-byline { margin-top: 13px; }
+  .tevez-editorial-rule { margin: 16px 0 12px; }
+  .tevez-reference-note, .tevez-caveat { font-size: 9px; }
+  .tevez-reference-list { display: grid; grid-template-columns: 1fr 1fr; column-gap: 14px; }
+  .tevez-reference-list a { grid-template-columns: 18px 1fr 11px; gap: 5px; padding: 7px 0; font-size: 9px; line-height: 1.3; }
+  .tevez-caveat { margin-bottom: 0; }
+  .tevez-preview-heading { margin-bottom: 10px; }
+  .tevez-visible-card { width: min(calc(100% - 46px), 430px); }
+  .tevez-arrow { width: 32px; height: 32px; }
+  .tevez-arrow-left { left: 0; }
+  .tevez-arrow-right { right: 0; }
+  .tevez-controls, .tevez-download-actions { width: min(calc(100% - 46px), 430px); }
+  .tevez-footer { padding: 14px 18px; font-size: 8px; }
+}
+
+@media (max-width: 400px) {
+  .tevez-header { gap: 10px; }
+  .tevez-brand { font-size: 11px; }
+  .tevez-brand-icon { width: 27px; height: 27px; }
+  .tevez-download-top { gap: 6px; font-size: 9px; }
+  .tevez-main { width: calc(100% - 28px); }
+  .tevez-reference-list { column-gap: 9px; }
+  .tevez-reference-list a { font-size: 8px; }
+  .tevez-size-label { font-size: 8px; }
+  .tevez-footer { font-size: 7px; letter-spacing: .06em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tevez-spinner { animation: none; }
+  .tevez-dot { transition: none; }
+}
