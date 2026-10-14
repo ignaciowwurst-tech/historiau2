@@ -3,8 +3,8 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Carlos Tévez: de Fuerte Apache al mundo | Cancha de Autor',
-  description: 'Un carrusel periodístico sobre la carrera de Carlos Tévez: su infancia, el debut, sus clubes y la despedida en La Bombonera.',
+  title: 'U2: del pizarrón de Dublín a la voz global | Cancha de Autor',
+  description: 'Una nota biográfica interactiva sobre U2, la historia de Irlanda, sus canciones, el activismo y las contradicciones del megáfono global.',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -26,11 +26,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  colorScheme: 'light dark',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
-  ],
+  colorScheme: 'light',
+  themeColor: '#f3f0e8',
 }
 
 export default function RootLayout({

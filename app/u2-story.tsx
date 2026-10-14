@@ -20,8 +20,9 @@ import {
 import {
   ACTIVISM_CAVEAT,
   ARTICLE_BYLINE,
-  ARTICLE_DESCRIPTION,
   ARTICLE_ENDING,
+  ARTICLE_FINAL_LINE,
+  ARTICLE_FINAL_QUESTION,
   ARTICLE_KICKER,
   ARTICLE_LEAD,
   ARTICLE_TITLE,
@@ -31,12 +32,14 @@ import {
   DATA_STATUS,
   EDITORIAL_ROUTE_NOTE,
   FOOTER_CREDIT,
+  ENDING_HEADING,
   IPOD_CAVEAT,
   MAP_ACCESSIBLE_NAME,
   MAP_CENTER,
   MAP_CREDIT,
   MAP_HEIGHT,
   MAP_LATITUDE_MEAN,
+  MAP_HEADING,
   MAP_STOPS,
   MAP_VIEWBOX,
   MAP_WIDTH,
@@ -51,7 +54,6 @@ import {
   ROUTE_PATH,
   SOURCES,
   SOURCES_CUTOFF,
-  STORY_HEADING,
   SUMMARY,
   TIMELINE,
   TIMELINE_HEADING,
@@ -61,7 +63,6 @@ import {
   activeStopIndex,
   buildRouteProgress,
   getStopDistances,
-  projectIrishPoint,
 } from './u2-story-data'
 
 type StoryProps = {
@@ -95,18 +96,38 @@ function routeCurve(points: [number, number][]) {
 
 function MapOverlay({
   progress,
+  totalLength,
   activeIndex,
   pathRef,
+  onPathReady,
   currentPoint,
   onSelectStop,
 }: {
   progress: number
+  totalLength: number
   activeIndex: number
   pathRef: React.RefObject<SVGPathElement | null>
+  onPathReady: (path: SVGPathElement | null) => void
   currentPoint: [number, number] | null
   onSelectStop: (index: number) => void
 }) {
   const { projection } = useMapContext()
+  const mapGroupRef = useRef<SVGGElement>(null)
+  const [unitsPerPixel, setUnitsPerPixel] = useState(1)
+  useEffect(() => {
+    const svg = mapGroupRef.current?.ownerSVGElement
+    if (!svg) return
+    const measure = () => {
+      const bounds = svg.getBoundingClientRect()
+      const scale = Math.min(bounds.width / MAP_WIDTH, bounds.height / MAP_HEIGHT)
+      if (scale > 0) setUnitsPerPixel(1 / scale)
+    }
+    const observer = new ResizeObserver(measure)
+    observer.observe(svg)
+    measure()
+    return () => observer.disconnect()
+  }, [])
+  const mapPixels = (pixels: number) => pixels * unitsPerPixel
   const points = useMemo(
     () => MAP_STOPS.map((stop) => projection(stop.coordinates) as [number, number]),
     [projection],
@@ -120,9 +141,17 @@ function MapOverlay({
   }
 
   return (
-    <g className="u2-map-route" aria-label={MAP_ACCESSIBLE_NAME}>
+    <g ref={mapGroupRef} className="u2-map-route" role="group" aria-label={MAP_ACCESSIBLE_NAME}>
       <path className="u2-map-route__underlay" d={route} />
-      <path className="u2-map-route__progress" d={route} ref={pathRef} />
+      <path
+        className="u2-map-route__progress"
+        d={route}
+        ref={onPathReady}
+        style={{
+          strokeDasharray: `${totalLength}`,
+          strokeDashoffset: `${totalLength * (1 - progress)}`,
+        }}
+      />
       {MAP_STOPS.map((stop, index) => {
         const [x, y] = points[index]
         const [offsetX, offsetY] = ROUTE_LABEL_OFFSETS[stop.id]
@@ -137,9 +166,14 @@ function MapOverlay({
             onClick={() => onSelectStop(index)}
             onKeyDown={(event) => handleKeyDown(event, index)}
           >
-            <circle className="u2-map-stop__target" cx={x} cy={y} r="24" />
-            <circle className="u2-map-stop__dot" cx={x} cy={y} r="8" />
-            <text x={x + offsetX} y={y + offsetY} className="u2-map-stop__label">
+            <circle className="u2-map-stop__target" cx={x} cy={y} r={mapPixels(24)} />
+            <circle className="u2-map-stop__dot" cx={x} cy={y} r={mapPixels(5)} style={{ strokeWidth: `${mapPixels(2)}px` }} />
+            <text
+              x={x + offsetX}
+              y={y + offsetY}
+              className="u2-map-stop__label"
+              style={{ fontSize: `${mapPixels(13)}px`, strokeWidth: `${mapPixels(4)}px` }}
+            >
               {stop.name}
             </text>
           </g>
@@ -147,8 +181,8 @@ function MapOverlay({
       })}
       {currentPoint && (
         <g className="u2-map-cursor" aria-hidden="true">
-          <circle className="u2-map-cursor__halo" cx={currentPoint[0]} cy={currentPoint[1]} r="17" />
-          <circle className="u2-map-cursor__dot" cx={currentPoint[0]} cy={currentPoint[1]} r="6" />
+          <circle className="u2-map-cursor__halo" cx={currentPoint[0]} cy={currentPoint[1]} r={mapPixels(17)} />
+          <circle className="u2-map-cursor__dot" cx={currentPoint[0]} cy={currentPoint[1]} r={mapPixels(4)} style={{ strokeWidth: `${mapPixels(2)}px` }} />
         </g>
       )}
     </g>
@@ -158,14 +192,18 @@ function MapOverlay({
 function IrelandMap({
   mapFeatures,
   progress,
+  totalLength,
   activeIndex,
   pathRef,
+  onPathReady,
   currentPoint,
   onSelectStop,
 }: StoryProps & {
   progress: number
+  totalLength: number
   activeIndex: number
   pathRef: React.RefObject<SVGPathElement | null>
+  onPathReady: (path: SVGPathElement | null) => void
   currentPoint: [number, number] | null
   onSelectStop: (index: number) => void
 }) {
@@ -176,14 +214,14 @@ function IrelandMap({
       projection={mapProjection}
       className="u2-map-svg"
       viewBox={MAP_VIEWBOX}
-      role="img"
+      role="group"
       aria-label={MAP_ACCESSIBLE_NAME}
     >
       <Geographies geography={mapFeatures}>
         {({ geographies }) => (
           <>
             {geographies.map((geography) => {
-              const country = geography.properties.name
+              const country = geography.properties?.name ?? ''
               return (
                 <Geography
                   key={geography.rsmKey}
@@ -195,8 +233,10 @@ function IrelandMap({
             })}
             <MapOverlay
               progress={progress}
+              totalLength={totalLength}
               activeIndex={activeIndex}
               pathRef={pathRef}
+              onPathReady={onPathReady}
               currentPoint={currentPoint}
               onSelectStop={onSelectStop}
             />
@@ -219,23 +259,22 @@ function PhotoStory() {
         const index = stepRefs.current.findIndex((step) => step === centered.target)
         if (index >= 0) setActiveStep(index)
       },
-      { rootMargin: '-50% 0px -50% 0px', threshold: 0 },
+      { rootMargin: '-49% 0px -49% 0px', threshold: 0 },
     )
     stepRefs.current.forEach((step) => step && observer.observe(step))
     return () => observer.disconnect()
   }, [])
 
   return (
-    <section className="u2-photo-story" id="contexto" aria-labelledby="u2-story-heading">
+    <section className="u2-photo-story" id="contexto" aria-label="Contexto histórico de U2">
       <div className="u2-photo-story__stage" aria-hidden="true">
         {PHOTO_STEPS.map((step, index) => (
-          <Image
+          <img
             key={step.id}
             src={step.image}
             alt=""
-            fill
-            sizes="100vw"
-            priority={index === 0}
+            loading={index === 0 ? 'eager' : 'lazy'}
+            fetchPriority={index === 0 ? 'high' : 'auto'}
             className={`u2-photo-story__image ${activeStep === index ? 'is-active' : ''}`}
           />
         ))}
@@ -326,6 +365,11 @@ function RouteStory({ mapFeatures }: StoryProps) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [currentPoint, setCurrentPoint] = useState<[number, number] | null>(null)
   const pathRef = useRef<SVGPathElement>(null)
+  const [pathElement, setPathElement] = useState<SVGPathElement | null>(null)
+  const setPath = useCallback((node: SVGPathElement | null) => {
+    pathRef.current = node
+    setPathElement(node)
+  }, [])
   const cardRefs = useRef<(HTMLElement | null)[]>([])
   const frameRef = useRef<number | null>(null)
   const reducedMotionRef = useRef(false)
@@ -333,7 +377,7 @@ function RouteStory({ mapFeatures }: StoryProps) {
   const routeCoordinates = useMemo(() => MAP_STOPS.map((stop) => stop.coordinates), [])
 
   const selectStop = useCallback((index: number) => {
-    cardRefs.current[index]?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    cardRefs.current[index]?.scrollIntoView({ behavior: 'auto', block: 'center' })
   }, [])
 
   useEffect(() => {
@@ -396,13 +440,13 @@ function RouteStory({ mapFeatures }: StoryProps) {
       reducedMotion.removeEventListener('change', onMotionPreferenceChange)
       if (frameRef.current !== null) window.cancelAnimationFrame(frameRef.current)
     }
-  }, [routeCoordinates])
+  }, [pathElement, routeCoordinates])
 
   const progress = totalLength ? drawnLength / totalLength : 0
 
   return (
     <section className="u2-route-story" id="recorrido" aria-labelledby="u2-map-heading">
-      <div className="u2-route-stage" aria-label="Mapa fijo; el relato avanza con el scroll">
+      <div className="u2-route-stage" role="group" aria-label="Mapa fijo; el relato avanza con el scroll">
         <div className="u2-route-stage__label">
           <p className="u2-eyebrow">RECORRIDO NARRATIVO · {MAP_STOPS.length} PARADAS</p>
           <h2 id="u2-map-heading">{MAP_HEADING}</h2>
@@ -412,8 +456,10 @@ function RouteStory({ mapFeatures }: StoryProps) {
           <IrelandMap
             mapFeatures={mapFeatures}
             progress={progress}
+            totalLength={totalLength}
             activeIndex={activeIndex}
             pathRef={pathRef}
+            onPathReady={setPath}
             currentPoint={currentPoint}
             onSelectStop={selectStop}
           />
@@ -571,8 +617,8 @@ export default function U2Story({ mapFeatures }: StoryProps) {
         <p className="u2-eyebrow">50 AÑOS DESPUÉS</p>
         <h2 id="u2-ending-heading">{ENDING_HEADING}</h2>
         <p>{ARTICLE_ENDING}</p>
-        <blockquote>"{ARTICLE_DESCRIPTION.split(',')[0]}"</blockquote>
-        <p className="u2-ending__last">{ARTICLE_LEAD}</p>
+        <blockquote>{ARTICLE_FINAL_QUESTION}</blockquote>
+        <p className="u2-ending__last">{ARTICLE_FINAL_LINE}</p>
       </section>
 
       <MediaArchive />

@@ -41,7 +41,7 @@ export const MAP_STOPS: MapStop[] = [
     period: '1972 · memoria',
     title: 'El eco del Domingo Sangriento',
     body: 'El 30 de enero de 1972, soldados británicos mataron a 13 manifestantes desarmados en Derry; una víctima más murió después. U2 no nació allí, pero el episodio quedó en el centro de “Sunday Bloody Sunday”, una canción que no llama a tomar partido: denuncia el cansancio de una violencia que vuelve.',
-    note: 'La secuencia del mapa es un recorrido editorial por la historia; no representa una gira ni una ruta física de la banda.',
+    note: 'Trazado esquemático entre las tres coordenadas aportadas: no representa caminos transitables, una gira ni una ruta física de la banda.',
   },
 ]
 
@@ -171,11 +171,11 @@ export function buildRouteProgress(path: SVGPathElement, distances: number[], mi
     const rect = card.getBoundingClientRect()
     return rect.top + rect.height / 2
   })
-  if (middle >= centers[0]) return distances[0]
-  if (middle <= centers[centers.length - 1]) return path.getTotalLength()
+  if (middle <= centers[0] + 1) return distances[0]
+  if (middle >= centers[centers.length - 1] - 1) return path.getTotalLength()
   for (let index = 0; index < centers.length - 1; index += 1) {
-    if (middle <= centers[index] && middle >= centers[index + 1]) {
-      const progress = (centers[index] - middle) / (centers[index] - centers[index + 1])
+    if (middle >= centers[index] && middle <= centers[index + 1]) {
+      const progress = (middle - centers[index]) / (centers[index + 1] - centers[index])
       return distances[index] + (distances[index + 1] - distances[index]) * progress
     }
   }
@@ -233,4 +233,5 @@ export const ARTICLE_FINAL_QUESTION = '¿Puede una banda hablar por todos? La hi
 export const ARTICLE_FINAL_LINE = 'Cincuenta años después del primer aviso, U2 sigue siendo noticia. La pregunta no es solo qué canción viene: es quién puede usar su volumen y con qué responsabilidad.'
 export const NEWS_URL = SOURCES[0].href
 export const ATLAS_SOURCE_URL = SOURCES[5].href
+export const SOURCES_CUTOFF = '14 de octubre de 2026'
 export const ARTICLE_META = { title: ARTICLE_TITLE, description: ARTICLE_DESCRIPTION }
