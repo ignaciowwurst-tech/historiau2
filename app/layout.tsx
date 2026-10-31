@@ -1,10 +1,14 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
+import { Instrument_Serif, Inter } from 'next/font/google'
 import './globals.css'
 
+const serif = Instrument_Serif({ subsets: ['latin'], weight: '400', variable: '--font-u2-serif' })
+const sans = Inter({ subsets: ['latin'], variable: '--font-u2-sans' })
+
 export const metadata: Metadata = {
-  title: 'Carlos Tévez: de Fuerte Apache al mundo | Cancha de Autor',
-  description: 'Un carrusel periodístico sobre la carrera de Carlos Tévez: su infancia, el debut, sus clubes y la despedida en La Bombonera.',
+  title: 'U2: cincuenta años de ruido y fe',
+  description: 'De un aviso en una escuela de Dublín a “Silencio” en vivo en Mount Temple: la historia de U2 contada con video, sonido de recital y fotos.',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -39,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es-AR">
+    <html lang="es-AR" className={`${serif.variable} ${sans.variable}`}>
       <body className="antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}

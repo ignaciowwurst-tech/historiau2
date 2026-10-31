@@ -1,6 +1,5 @@
-import TevezCarouselStudio from './tevez-carousel-studio'
+import U2Story from './u2-story'
 
 export default function Page() {
-  return <TevezCarouselStudio />
+  return <U2Story />
 }
-

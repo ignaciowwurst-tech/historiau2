@@ -348,3 +348,66 @@ body {
   .tevez-spinner { animation: none; }
   .tevez-dot { transition: none; }
 }
+
+/* U2 — experiencia de recital */
+.u2-story { --u2-ink: #0a0a0b; --u2-bone: #f2ede4; --u2-muted: #a8a299; --u2-accent: #ff5a36; background: var(--u2-ink); color: var(--u2-bone); font-family: var(--font-u2-sans), system-ui, sans-serif; overflow-x: clip; }
+.u2-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #000; }
+
+.u2-sound { position: fixed; top: 16px; right: 16px; z-index: 50; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 1px solid rgba(255,255,255,.22); border-radius: 999px; background: rgba(10,10,11,.6); color: var(--u2-bone); font-size: 13px; font-weight: 500; backdrop-filter: blur(10px); cursor: pointer; }
+.u2-sound[aria-pressed="true"] { border-color: var(--u2-accent); }
+.u2-sound:focus-visible, .u2-hero__cta:focus-visible { outline: 2px solid var(--u2-accent); outline-offset: 3px; }
+
+.u2-hero { position: relative; display: flex; height: 100svh; min-height: 520px; align-items: flex-end; overflow: hidden; }
+.u2-hero__shade { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,11,.95) 0%, rgba(10,10,11,.55) 45%, rgba(10,10,11,.15) 100%); }
+.u2-hero__copy { position: relative; display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 760px; padding: 0 6vw 7svh; }
+.u2-hero__band { margin: 0; font-size: clamp(88px, 22vw, 240px); font-weight: 800; letter-spacing: -.06em; line-height: .8; }
+.u2-hero h1 { margin: 0; font-family: var(--font-u2-serif), Georgia, serif; font-size: clamp(34px, 6vw, 68px); font-weight: 400; line-height: 1; text-wrap: balance; }
+.u2-hero__dek { margin: 0; max-width: 560px; color: #ddd6cb; font-size: 17px; line-height: 1.55; text-wrap: pretty; }
+.u2-hero__cta { display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; min-height: 48px; padding: 0 24px; border: 0; border-radius: 999px; background: var(--u2-accent); color: #160603; font-size: 15px; font-weight: 700; text-decoration: none; cursor: pointer; }
+.u2-hero__caption { margin: 0; color: var(--u2-muted); font-size: 12px; }
+
+.u2-prose { max-width: 640px; margin: 0 auto; padding: 18svh 24px; }
+.u2-prose p { margin: 0 0 1.2em; font-family: var(--font-u2-serif), Georgia, serif; font-size: clamp(22px, 2.6vw, 30px); line-height: 1.35; text-wrap: pretty; }
+.u2-prose p:last-child { margin-bottom: 0; }
+.u2-prose--lead p:first-child::first-letter { float: left; margin: .06em .1em 0 0; color: var(--u2-accent); font-size: 3.4em; line-height: .8; }
+
+/* Fotos fijas */
+.scrolly { position: relative; }
+.escenario { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+.escenario__foto { position: absolute; inset: 0; object-fit: cover; opacity: 0; transition: opacity 1s; }
+.escenario__foto.is-active { opacity: 1; }
+.escenario__degradado { position: absolute; inset: 0; background: linear-gradient(to right, rgba(10,10,11,.85) 0%, rgba(10,10,11,.45) 40%, rgba(10,10,11,0) 70%); }
+.pasos { position: relative; z-index: 2; margin-top: -100svh; }
+.paso { display: flex; min-height: 120svh; align-items: center; padding: 0 6vw; }
+.tarjeta { max-width: 420px; padding: 24px; border: 1px solid rgba(255,255,255,.14); border-radius: 18px; background: rgba(10,10,11,.72); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.tarjeta h2 { margin: 0 0 12px; font-family: var(--font-u2-serif), Georgia, serif; font-size: 32px; font-weight: 400; line-height: 1.05; }
+.tarjeta p { margin: 0 0 14px; font-size: 17px; line-height: 1.55; }
+.tarjeta small { display: block; color: var(--u2-muted); font-size: 12px; line-height: 1.4; }
+
+/* Videos a pantalla completa */
+.u2-moment { position: relative; }
+.u2-moment__stage { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+.u2-moment__shade { position: absolute; inset: 0; background: linear-gradient(to right, rgba(10,10,11,.75) 0%, rgba(10,10,11,.2) 50%, rgba(10,10,11,0) 75%); }
+.u2-moment__quotes { position: relative; z-index: 2; margin-top: -100svh; padding-bottom: 20svh; }
+.u2-quote { display: flex; min-height: 100svh; flex-direction: column; justify-content: center; max-width: calc(420px + 12vw); margin: 0; padding: 0 6vw; }
+.u2-quote blockquote { margin: 0 0 14px; padding: 24px; border-radius: 18px; background: rgba(10,10,11,.72); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); font-family: var(--font-u2-serif), Georgia, serif; font-size: clamp(28px, 3.4vw, 40px); line-height: 1.1; }
+.u2-quote figcaption { padding: 0 24px; color: #d7d0c5; font-size: 13px; line-height: 1.45; text-shadow: 0 1px 8px #000; }
+
+.u2-credits { max-width: 640px; margin: 0 auto; padding: 72px 24px 96px; border-top: 1px solid rgba(255,255,255,.12); }
+.u2-credits p { margin: 0 0 10px; color: var(--u2-muted); font-size: 13px; line-height: 1.5; }
+
+@media (max-width: 639px) {
+  .escenario__degradado, .u2-moment__shade { background: linear-gradient(to top, rgba(10,10,11,.9) 0%, rgba(10,10,11,.4) 45%, rgba(10,10,11,0) 70%); }
+  .paso { align-items: flex-end; padding: 0 12px 5svh; }
+  .tarjeta { width: 100%; max-width: none; max-height: 50svh; overflow-y: auto; padding: 20px; }
+  .tarjeta h2 { font-size: 28px; }
+  .u2-quote { justify-content: flex-end; max-width: none; padding: 0 12px 6svh; }
+  .u2-quote blockquote { padding: 20px; font-size: 26px; }
+  .u2-quote figcaption { padding: 0 8px; }
+  .u2-sound span { display: none; }
+  .u2-sound { width: 40px; justify-content: center; padding: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .escenario__foto { transition: none; }
+}
