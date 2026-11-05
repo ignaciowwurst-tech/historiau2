@@ -21,7 +21,7 @@ export function Hero() {
         <p className="u2-hero__dek">{HERO.dek}</p>
         {soundOn ? (
           <a className="u2-hero__cta" href="#comienzo">
-            Bajá para entrar <ChevronDown aria-hidden="true" size={18} />
+            Entrar al recital <ChevronDown aria-hidden="true" size={18} />
           </a>
         ) : (
           <button type="button" className="u2-hero__cta" onClick={() => setSoundOn(true)}>

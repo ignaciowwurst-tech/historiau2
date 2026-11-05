@@ -3,7 +3,6 @@ import { PhotoScrolly } from '@/components/u2/photo-scrolly'
 import { SoundProvider, SoundToggle } from '@/components/u2/sound'
 import { VideoMoment } from '@/components/u2/video-moment'
 import {
-  CLOSING,
   CREDITS,
   INTERVIEW,
   PHOTO_STEPS_ORIGIN,
@@ -38,7 +37,6 @@ export default function U2Story() {
           <Prose paragraphs={PROSE_REINVENTION} />
           <PhotoScrolly steps={PHOTO_STEPS_WORLD} />
           <Prose paragraphs={PROSE_CLOSING} />
-          <VideoMoment moment={CLOSING} />
         </article>
         <footer className="u2-credits">
           {CREDITS.map((credit) => (
