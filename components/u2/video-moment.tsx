@@ -8,6 +8,11 @@ export function VideoMoment({ moment }: { moment: VideoMomentData }) {
         <ImmersiveVideo src={moment.src} poster={moment.poster} label={moment.label} />
         <div className="u2-moment__shade" aria-hidden="true" />
       </div>
+      {moment.people?.length ? (
+        <div className="u2-moment__people" aria-label="Entrevistados">
+          {moment.people.join(' · ')}
+        </div>
+      ) : null}
       <div className="u2-moment__quotes">
         {moment.quotes.map((quote) => (
           <figure className="u2-quote" key={quote.text}>
