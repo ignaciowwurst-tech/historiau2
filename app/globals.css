@@ -370,6 +370,11 @@ body {
 .u2-prose p { margin: 0 0 1.2em; font-family: var(--font-u2-serif), Georgia, serif; font-size: clamp(22px, 2.6vw, 30px); line-height: 1.35; text-wrap: pretty; }
 .u2-prose p:last-child { margin-bottom: 0; }
 .u2-prose--lead p:first-child::first-letter { float: left; margin: .06em .1em 0 0; color: var(--u2-accent); font-size: 3.4em; line-height: .8; }
+.u2-testimony { position: relative; z-index: 3; width: 100%; margin: -7svh auto 12svh; padding: 18px 24px; background: var(--u2-ink); }
+.u2-testimony figure { max-width: 760px; margin: 0 auto; padding: 8px 0 8px 26px; border-left: 2px solid var(--u2-accent); }
+.u2-testimony blockquote { max-width: 690px; margin: 0 0 14px; font-family: var(--font-u2-serif), Georgia, serif; font-size: clamp(24px, 3vw, 36px); line-height: 1.2; text-wrap: pretty; }
+.u2-testimony blockquote p { margin: 0; }
+.u2-testimony figcaption { color: var(--u2-muted); font-size: 13px; line-height: 1.5; }
 
 /* Fotos fijas */
 .scrolly { position: relative; }
@@ -404,6 +409,9 @@ body {
   .u2-quote { justify-content: flex-end; max-width: none; padding: 0 12px 6svh; }
   .u2-quote blockquote { padding: 20px; font-size: 26px; }
   .u2-quote figcaption { padding: 0 8px; }
+  .u2-testimony { margin: -6svh auto 10svh; padding: 18px 16px; }
+  .u2-testimony figure { padding-left: 18px; }
+  .u2-testimony blockquote { font-size: 26px; }
   .u2-sound span { display: none; }
   .u2-sound { width: 40px; justify-content: center; padding: 0; }
 }
