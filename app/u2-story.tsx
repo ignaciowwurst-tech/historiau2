@@ -11,6 +11,8 @@ import {
   PROSE_OPENING,
   PROSE_REINVENTION,
   PROSE_WAR,
+  TESTIMONIES,
+  type Testimony,
 } from './u2-story-data'
 
 function Prose({ paragraphs, id, lead = false }: { paragraphs: string[]; id?: string; lead?: boolean }) {
@@ -23,6 +25,19 @@ function Prose({ paragraphs, id, lead = false }: { paragraphs: string[]; id?: st
   )
 }
 
+function EditorialTestimony({ testimony }: { testimony: Testimony }) {
+  return (
+    <aside className="u2-testimony">
+      <figure>
+        <blockquote>
+          <p>{`“${testimony.text}”`}</p>
+        </blockquote>
+        <figcaption>{testimony.attribution}</figcaption>
+      </figure>
+    </aside>
+  )
+}
+
 export default function U2Story() {
   return (
     <SoundProvider>
@@ -32,10 +47,15 @@ export default function U2Story() {
         <article>
           <Prose paragraphs={PROSE_OPENING} id="comienzo" lead />
           <PhotoScrolly steps={PHOTO_STEPS_ORIGIN} />
+          <EditorialTestimony testimony={TESTIMONIES.origin} />
           <Prose paragraphs={PROSE_WAR} />
+          {TESTIMONIES.sundayBloodySunday.map((testimony) => (
+            <EditorialTestimony key={testimony.attribution} testimony={testimony} />
+          ))}
           <VideoMoment moment={INTERVIEW} />
           <Prose paragraphs={PROSE_REINVENTION} />
           <PhotoScrolly steps={PHOTO_STEPS_WORLD} />
+          <EditorialTestimony testimony={TESTIMONIES.one} />
           <Prose paragraphs={PROSE_CLOSING} />
         </article>
         <footer className="u2-credits">

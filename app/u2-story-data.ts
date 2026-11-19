@@ -17,6 +17,11 @@ export type VideoMoment = {
   quotes: { text: string; attribution: string }[]
 }
 
+export type Testimony = {
+  text: string
+  attribution: string
+}
+
 export const HERO = {
   video: '/u2/silencio-mount-temple.mp4',
   poster: '/u2/poster-silencio.jpg',
@@ -29,6 +34,27 @@ export const PROSE_OPENING = [
   'El 25 de septiembre de 1976, Larry Mullen Jr. tenía catorce años y una batería en la cocina. Pegó un aviso en el tablón de Mount Temple Comprehensive School: buscaba músicos. Aparecieron Paul Hewson, David Evans y Adam Clayton, entre otros. Ninguno sabía tocar demasiado bien.',
   'El punk había cambiado la regla: primero había que tener algo que decir; después, aprender a decirlo. Pasaron por Feedback y The Hype antes de quedarse con dos letras. Paul pasó a ser Bono; David, The Edge.',
 ]
+
+export const TESTIMONIES = {
+  origin: {
+    text: 'El primer ensayo fue el 25 de septiembre de 1976 en la casa de Larry Mullen Jr., ese joven que empezó con el sueño publicando el mencionado anuncio. Un lugar muy chico donde sus primeros instrumentos entraron en acción para darle vida a la aventura.',
+    attribution: 'Carlos Iogna Prat, periodista de TBN',
+  },
+  sundayBloodySunday: [
+    {
+      text: 'Agregaban la inscripción que se ve en varias grabaciones en vivo: “Not a Rebel Song”, o sea, “no una canción rebelde”, porque si bien defendían a las minorías católicas, no se querían posicionar del lado del IRA.',
+      attribution: 'Franco Ricci, creador de contenido musical de Clave 7',
+    },
+    {
+      text: 'Aun con cosas de Bono que no me gustan personalmente, la postura que tomaron en los 70 es que hicieron lo que pudieron.',
+      attribution: 'Cristián Poow, músico',
+    },
+  ] satisfies Testimony[],
+  one: {
+    text: '«One» puede tener diez millones de interpretaciones: desde el romanticismo de pareja, el amor por la vida, lo que vos quieras. La historia real de lo que estaba atravesando la banda es lo que menos importa: la canción te llega tanto que con eso alcanza y sobra.',
+    attribution: 'Cristián Poow, músico',
+  },
+} satisfies { origin: Testimony; sundayBloodySunday: Testimony[]; one: Testimony }
 
 export const PHOTO_STEPS_ORIGIN: PhotoStep[] = [
   {
@@ -61,7 +87,7 @@ export const INTERVIEW: VideoMoment = {
   src: '/u2/bono-belfast.mp4',
   poster: '/u2/poster-belfast.jpg',
   label: 'Bono recuerda la primera vez que tocaron “Sunday Bloody Sunday” en Belfast',
-  people: ['Carlos Iogna Prat', 'Cristian Poow', 'Franco “Churri” Ricci'],
+  people: ['Carlos Iogna Prat', 'Cristián Poow', 'Franco Ricci'],
   quotes: [
     {
       text: 'Esta canción se llama “Sunday Bloody Sunday”. Si no les gusta, no la volvemos a tocar nunca más.',
